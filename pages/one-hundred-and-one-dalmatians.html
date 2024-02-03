@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/global.css"/>
     <title>Document</title>
-    <script src="../javascript/get-movies.js" type="module"></script>
-    <script src="../javascript/constants.js" type="module"></script>
+    <script src="../javascript/get-movie.js"></script>
+    <script src="../javascript/constants.js"></script>
 </head>
 <body>
     <header>
@@ -35,8 +35,8 @@
     </header>
 
     <div class="banner">
-            <button class="more-information">More Information</button>
-        </div>
+        <button class="more-information">More Information</button>
+    </div>
 
     <div class="filter">
         <div class="city-filter">
@@ -57,33 +57,40 @@
         </div>
     </div>
 
-    <h1>Billboard</h1>
-    <div class="movie-list" id="movie-list">
+    <div class="movie-details">
+        <div class="row" id="movie-poster">
+            <div class="image-column" id="movie-poster-image"></div>
+            <div class="details-column" id="movie-poster-details"></div>
+        </div>
     </div>
 </body>
 <script type="module">
-    import { get_movies } from '../javascript/get-movies.js';
+    import { ONE_HUNDRED_AND_ONE_DALMATIANS_MOVIE_ID, get_movie } from '../javascript/get-movie.js';
+    import { createMovieDetails } from '../javascript/movie-details.js';
     import { createImag } from '../javascript/utils.js';
 
-    get_movies()
-        .then((data) => {
-            data.map((movie) => {
-                const container = document.createElement("div")
-                container.className = "poster-container"
+
+    get_movie(ONE_HUNDRED_AND_ONE_DALMATIANS_MOVIE_ID)
+        .then((movie) => {
+                const imageContainer = document.createElement("div")
+                imageContainer.className = "movie-poster-image-container"
 
                 const imgElement = createImag(movie)
-                container.appendChild(imgElement)
+                imageContainer.appendChild(imgElement)
 
-                const buttonElement = document.createElement("button")
-                buttonElement.textContent = "View"
-                buttonElement.className = "schedules"
-                buttonElement.setAttribute('data-movie-id', movie.id)
-                container.appendChild(buttonElement)
+                const imagePosterElement = document.getElementById("movie-poster-image");
+                imagePosterElement.appendChild(imageContainer);
 
-                const element = document.getElementById("movie-list");
-                element.appendChild(container);
-            })
+                const detailsContainer = document.createElement("div")
+                detailsContainer.className = "movie-poster-details-container"
+
+                const detailsElement = createMovieDetails(movie)
+                detailsContainer.appendChild(detailsElement)
+
+                const detailsPosterElement = document.getElementById("movie-poster-details");
+                detailsPosterElement.appendChild(detailsContainer);
         });
+
 </script>
 <footer>
     <div class="about-us">
