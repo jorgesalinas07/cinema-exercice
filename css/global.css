@@ -82,6 +82,9 @@ div.banner {
     height: 400px;
     background-image: url("../resources/images/banner.jpg");
     align-items: end;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 button.more-information {
